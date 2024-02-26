@@ -13,7 +13,7 @@ import { useKindeAuth } from '@kinde-oss/kinde-auth-react';
 
 
 export default function LandingPage() {
-    const {isAuthenticated, login, getToken} = useKindeAuth();
+    const {isAuthenticated, login, logout, getToken} = useKindeAuth();
 
     React.useEffect(() => {
         if (isAuthenticated) {
@@ -35,9 +35,9 @@ export default function LandingPage() {
                 </p>
                 <button
                     className="mt-8 inline-block bg-light-primary text-dark-text font-bold py-2 px-4 rounded"
-                    onClick={isAuthenticated ? () => {} : login}
+                    onClick={isAuthenticated ? logout : login}
                 >
-                    Get Started
+                    {isAuthenticated ? 'Logout' : 'Get Started'}
                 </button>
             </section>
 
