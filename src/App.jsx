@@ -1,11 +1,14 @@
-import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
-import LoggedIn from "./components/LoggedIn";
-import LoggedOut from "./components/LoggedOut";
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import LandingPage from "./components/LandingPage";
+
+const router = createBrowserRouter([
+  { path: "/", element: <LandingPage/>, index: true },
+])
+
 
 export default function App() {
-  const { isLoading, isAuthenticated } = useKindeAuth();
-
-  if (isLoading) return <>Loading...</>;
-
-  return isAuthenticated ? <LoggedIn /> : <LoggedOut />;
+  return (
+    <RouterProvider router={router}/>
+  );
 }

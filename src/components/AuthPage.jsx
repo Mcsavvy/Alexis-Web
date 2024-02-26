@@ -6,7 +6,7 @@ export default function LoggedOut() {
     <>
       <header>
         <nav className="nav container">
-          <h1 className="text-display-3">KindeAuth</h1>
+          <h1 className="text-display-3">Alexis</h1>
           <div>
             <button className="btn btn-ghost sign-in-btn" onClick={login}>
               Sign in

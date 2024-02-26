@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { KindeProvider } from "@kinde-oss/kinde-auth-react";
-import App from "./App.jsx";
+import LandingPage from "./App.jsx";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       redirectUri={import.meta.env.VITE_KINDE_REDIRECT_URL}
       isDangerouslyUseLocalStorage={import.meta.env.DEV}
     >
-      <App />
+      <LandingPage />
     </KindeProvider>
   </React.StrictMode>
 );
