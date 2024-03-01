@@ -11,17 +11,72 @@ import { RiShieldUserLine } from 'react-icons/ri';
 import Layout from './Layout';
 import { useKindeAuth } from '@kinde-oss/kinde-auth-react';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+function setCookie(name, value, days) {
+    let expires = '';
+    if (days) {
+        const date = new Date();
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+        expires = `; expires=${date.toUTCString()}`;
+    }
+    document.cookie = `${name}=${value || ''}${expires}; path=/`;
+}
+
+function getCookie(name) {
+    const nameEQ = `${name}=`;
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+function clearCookie(name) {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+}
 
 export default function LandingPage() {
-    const {isAuthenticated, login, logout, getToken} = useKindeAuth();
+    const { isAuthenticated, login, logout, user } = useKindeAuth();
 
     React.useEffect(() => {
         if (isAuthenticated) {
-            getToken().then((token) => {
-                console.log(token);
-            });
+            const token = getCookie('access_token');
+            if (token) return;
+            console.log("user", user);
+            fetch(`${API_URL}/auth/authenticate`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    first_name: user.given_name,
+                    last_name: user.family_name,
+                    email: user.email,
+                    picture: user.picture,
+                    kinde_user: user.id,
+                }),
+            })
+                .then((res) => res.json())
+                .then(({ token }) => {
+                    console.log("token", token);
+                    setCookie('access_token', token, 1);
+                });
         }
     }, [isAuthenticated]);
+
+    function handleLogin() {
+        login().then(() => {
+            console.log(user);
+        })
+    }
+
+    function handleLogout() {
+        clearCookie('access_token');
+        logout();
+    }
 
     return (
         <Layout joinButton={false} actions={[]}>
@@ -35,7 +90,7 @@ export default function LandingPage() {
                 </p>
                 <button
                     className="mt-8 inline-block bg-light-primary text-dark-text font-bold py-2 px-4 rounded"
-                    onClick={isAuthenticated ? logout : login}
+                    onClick={isAuthenticated ? handleLogout : handleLogin}
                 >
                     {isAuthenticated ? 'Logout' : 'Get Started'}
                 </button>
