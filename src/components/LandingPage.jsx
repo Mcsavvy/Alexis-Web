@@ -124,25 +124,6 @@ export default function LandingPage() {
                     </div>
                 </div>
             </section>
-
-            {/* Resource Gathering Section
-            <section className="container mx-auto py-20">
-                <div className="flex justify-center items-center text-light-icon hover:text-light-primary">
-                    <BiBook className="text-6xl" />
-                    <IoVideocamOutline className="text-6xl" />
-                    <AiOutlineLink className="text-6xl" />
-                </div>
-                <div className="text-center px-2">
-                    <h2 className="text-2xl font-bold">
-                        Innovative Approach to Resource Gathering
-                    </h2>
-                    <p>
-                        Using the serper API for up-to-date search results, ensuring you
-                        have access to the latest information.
-                    </p>
-                </div>
-            </section> */}
-
             {/* Privacy and User Focus Section */}
             <section className="bg-gray-100 py-20">
                 <div className="container mx-auto text-center">
