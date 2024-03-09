@@ -1,8 +1,9 @@
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
-import * as React from 'react';
 
+//
+// eslint-disable-next-line no-unused-vars
 const defaultActions = [
     {
         title: 'Chat',
@@ -25,10 +26,10 @@ const defaultActions = [
 
 export default function Layout({
     children,
-    actions,
+    // actions,
     joinButton,
 }) {
-    const navActions = actions || defaultActions;
+    // const navActions = actions || defaultActions;
     if (joinButton === undefined) {
         joinButton = true;
     }
@@ -72,9 +73,9 @@ export default function Layout({
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="text-gray-600 hover:text-gray-900">
+                            <Link to="/privacy-policy" className="text-gray-600 hover:text-gray-900">
                                 Privacy Policy
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                     {joinButton && (
