@@ -1,9 +1,11 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
+import PrivacyPolicy from './components/PrivacyPolicy';
 
 const router = createBrowserRouter([
   { path: "/", element: <LandingPage/>, index: true },
+  { path: "privacy-policy", element: <PrivacyPolicy />}
 ])
 
 
