@@ -5,7 +5,7 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 
 const router = createBrowserRouter([
   { path: "/", element: <LandingPage/>, index: true },
-  { path: "privacy-policy", element: <PrivacyPolicy />}
+  { path: "/privacy-policy", element: <PrivacyPolicy />}
 ])
 
 
