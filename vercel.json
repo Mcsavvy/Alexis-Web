@@ -9,6 +9,90 @@
             "dest": "/$1.css"
         },
         {
+            "src": "/(.*)\\.png",
+            "dest": "/$1.png"
+        },
+        {
+            "src": "/(.*)\\.jpg",
+            "dest": "/$1.jpg"
+        },
+        {
+            "src": "/(.*)\\.jpeg",
+            "dest": "/$1.jpeg"
+        },
+        {
+            "src": "/(.*)\\.gif",
+            "dest": "/$1.gif"
+        },
+        {
+            "src": "/(.*)\\.svg",
+            "dest": "/$1.svg"
+        },
+        {
+            "src": "/(.*)\\.ico",
+            "dest": "/$1.ico"
+        },
+        {
+            "src": "/(.*)\\.json",
+            "dest": "/$1.json"
+        },
+        {
+            "src": "/(.*)\\.xml",
+            "dest": "/$1.xml"
+        },
+        {
+            "src": "/(.*)\\.pdf",
+            "dest": "/$1.pdf"
+        },
+        {
+            "src": "/(.*)\\.txt",
+            "dest": "/$1.txt"
+        },
+        {
+            "src": "/(.*)\\.doc",
+            "dest": "/$1.doc"
+        },
+        {
+            "src": "/(.*)\\.docx",
+            "dest": "/$1.docx"
+        },
+        {
+            "src": "/(.*)\\.xls",
+            "dest": "/$1.xls"
+        },
+        {
+            "src": "/(.*)\\.xlsx",
+            "dest": "/$1.xlsx"
+        },
+        {
+            "src": "/(.*)\\.ppt",
+            "dest": "/$1.ppt"
+        },
+        {
+            "src": "/(.*)\\.pptx",
+            "dest": "/$1.pptx"
+        },
+        {
+            "src": "/(.*)\\.zip",
+            "dest": "/$1.zip"
+        },
+        {
+            "src": "/(.*)\\.rar",
+            "dest": "/$1.rar"
+        },
+        {
+            "src": "/(.*)\\.tar",
+            "dest": "/$1.tar"
+        },
+        {
+            "src": "/(.*)\\.gz",
+            "dest": "/$1.gz"
+        },
+        {
+            "src": "/(.*)\\.7z",
+            "dest": "/$1.7z"
+        },
+        {
             "src": "/(.*)",
             "dest": "/index.html"
         }
