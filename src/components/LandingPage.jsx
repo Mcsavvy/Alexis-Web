@@ -10,76 +10,24 @@ import { MdOutlineLibraryBooks } from 'react-icons/md';
 import { RiShieldUserLine } from 'react-icons/ri';
 import Layout from './Layout';
 import { useKindeAuth } from '@kinde-oss/kinde-auth-react';
+import { getAccessToken, setCookie } from '../utils';
 
-const API_URL = import.meta.env.VITE_API_URL;
-
-function setCookie(name, value, days) {
-    let expires = '';
-    if (days) {
-        const date = new Date();
-        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-        expires = `; expires=${date.toUTCString()}`;
-    }
-    document.cookie = `${name}=${value || ''}${expires}; path=/`;
-}
-
-function getCookie(name) {
-    const nameEQ = `${name}=`;
-    const ca = document.cookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-}
-
-function clearCookie(name) {
-    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-}
+const CHROME_EXTENSION_URL = import.meta.env.VITE_CHROME_EXTENSION_URL;
 
 export default function LandingPage() {
-    const { isAuthenticated, login, logout, user } = useKindeAuth();
+    const { isAuthenticated, user } = useKindeAuth();
 
     React.useEffect(() => {
-        if (isAuthenticated) {
-            const token = getCookie('access_token');
-            if (token) return;
-            console.log("user", user);
-            fetch(`${API_URL}/auth/authenticate`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    first_name: user.given_name,
-                    last_name: user.family_name,
-                    email: user.email,
-                    picture: user.picture,
-                    kinde_user: user.id,
-                }),
-            })
-                .then((res) => res.json())
-                .then(({ token }) => {
-                    console.log("token", token);
-                    setCookie('access_token', token, 1);
-                });
+        if (isAuthenticated && user) {
+            getAccessToken(user).then((token) => {
+                console.log("token", token);
+                setCookie('access_token', token, 15);
+            });
         }
-    }, [isAuthenticated]);
-
-    function handleLogin() {
-        login().then(() => {
-            console.log(user);
-        })
-    }
-
-    function handleLogout() {
-        clearCookie('access_token');
-        logout();
-    }
+    }, [isAuthenticated, user]);
 
     return (
-        <Layout joinButton={false} actions={[]}>
+        <Layout joinButton={false}>
             {/* Hero Section */}
             <section className="text-center py-20 bg-gray-50">
                 <img src="/logo.png" alt="Alexis Logo" className="mx-auto h-20 mb-4" />
@@ -88,12 +36,14 @@ export default function LandingPage() {
                 <p className="text-xl text-gray-600 mt-4">
                     Real-time Assistance. Personalized Learning. Enhanced Outcomes.
                 </p>
-                <button
-                    className="mt-8 inline-block bg-light-primary text-dark-text font-bold py-2 px-4 rounded"
-                    onClick={isAuthenticated ? handleLogout : handleLogin}
+                <a
+                    className="mt-8 inline-block bg-sky-700 text-dark-text font-bold py-2 px-4 rounded"
+                    href={CHROME_EXTENSION_URL}
+                    target="_blank"
+                    rel="noreferrer"
                 >
-                    {isAuthenticated ? 'Logout' : 'Get Started'}
-                </button>
+                    Download Extension
+                </a>
             </section>
 
             {/* Features Section */}
